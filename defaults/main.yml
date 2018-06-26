@@ -1,0 +1,5 @@
+---
+docker_ce_apt_key_link: https://download.docker.com/linux/ubuntu/gpg
+docker_ce_repo_link: https://download.docker.com/linux/ubuntu
+docker_ce_compose_version: 1.21.2
+

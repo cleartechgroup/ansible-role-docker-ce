@@ -1,0 +1,35 @@
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+
+- name: Add Docker's official GPG key
+  apt_key:
+    url: "{{ docker_ce_apt_key_link }}"
+    state: present
+
+- name: Add Docker's official repository
+  apt_repository:
+    repo: deb [arch=amd64] {{ docker_ce_repo_link }} {{ ansible_distribution_release }} stable
+    filename: docker-ce
+    state: present
+    update_cache: yes
+
+- name: Install Docker package
+  apt:
+    name: docker-ce
+    update_cache: yes
+
+- name: Install Docker Compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_ce_compose_version }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+    owner: root
+    group: root
